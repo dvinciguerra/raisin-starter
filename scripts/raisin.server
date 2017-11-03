@@ -1,0 +1,4 @@
+#!/usr/bin/env perl
+
+use FindBin;
+exec "plackup -E deployment -s Starman $FindBin::Bin/../app.psgi";
