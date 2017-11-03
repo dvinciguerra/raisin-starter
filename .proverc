@@ -1,0 +1,4 @@
+--lib
+--recurse
+--normalize
+--jobs=9
