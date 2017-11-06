@@ -1,0 +1,5 @@
+%syntax-version=1.0.0
+%project=raisin
+
+20171027163558-create_database 2017-10-27T18:35:59Z Daniel Vinciguerra <daniel@eokoe.com> # Add create aplication database
+20171027163707-add_user 2017-10-27T18:37:07Z Daniel Vinciguerra <daniel@eokoe.com> # Add user table to migration

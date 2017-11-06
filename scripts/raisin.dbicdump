@@ -1,0 +1,38 @@
+#!/usr/bin/env perl
+
+use DBIx::Class::Schema::Loader qw/make_schema_at/;
+
+`source /home/danielvinciguerra/Projects/sagui-api/api/env.development`;
+
+## configs
+my %CONF = (
+  PG_USER     => $ENV{POSTGRESQL_USER}     || 'pg',
+  PG_PASS     => $ENV{POSTGRESQL_PASS}     || 'test',
+  PG_HOST     => $ENV{POSTGRESQL_HOST}     || '127.0.0.1',
+  PG_PORT     => $ENV{POSTGRESQL_PORT}     || 5432,
+  PG_DATABASE => $ENV{POSTGRESQL_DATABASE} || 'raisin_development',
+);
+
+#dbicdump -Iapi/lib\
+#		-o dump_directory=api/lib \
+#		-o components='["InflateColumn::DateTime", "TimeStamp", "PassphraseColumn"]' \
+#		-o overwrite_modifications=1 \
+#		Sagui::Schema \
+#		'dbi:Pg:dbname=raisin_development;host=127.0.0.1;port=5432' \
+#		postgres
+
+# proceed schema loader
+make_schema_at(
+  'App::Schema',
+  {
+    debug                   => 1,
+    dump_directory          => './lib',
+    overwrite_modifications => 1,
+    components => ["InflateColumn::DateTime", "TimeStamp", "PassphraseColumn"],
+  },
+  [
+    "dbi:Pg:dbname=$CONF{PG_DATABASE};host=$CONF{PG_HOST};port=$CONF{PG_PORT}",
+    $CONF{PG_USER},
+    $CONF{PG_PASS}
+  ],
+);
